@@ -1,28 +1,23 @@
-package com.api.Restwithspringbootandjava.model;
+package com.api.Restwithspringbootandjava.data.dtos.v1;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "person")
-public class PersonModel implements Serializable {
+//@JsonPropertyOrder({"id","address","first_name","last_name","gender"})
+public class PersonDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "first_name",nullable = false,length = 80)
+//    @JsonProperty("first_name")
     private String firstName;
-    @Column(name = "last_name",nullable = false,length = 80)
+//    @JsonProperty("last_name")
     private String lastName;
-    @Column(nullable = false,length = 100)
+//    @JsonIgnore
     private String address;
-    @Column(nullable = false,length = 6)
     private String gender;
 
 
-    public PersonModel() {
+    public PersonDto() {
 
     }
 

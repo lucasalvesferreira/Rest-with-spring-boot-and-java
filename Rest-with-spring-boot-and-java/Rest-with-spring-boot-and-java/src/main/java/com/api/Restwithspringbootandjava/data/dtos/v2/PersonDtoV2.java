@@ -1,28 +1,23 @@
-package com.api.Restwithspringbootandjava.model;
+package com.api.Restwithspringbootandjava.data.dtos.v2;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class PersonModel implements Serializable {
+public class PersonDtoV2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "first_name",nullable = false,length = 80)
     private String firstName;
-    @Column(name = "last_name",nullable = false,length = 80)
     private String lastName;
-    @Column(nullable = false,length = 100)
     private String address;
-    @Column(nullable = false,length = 6)
     private String gender;
+    private Date birthDay;
 
 
-    public PersonModel() {
+    public PersonDtoV2() {
 
     }
 
@@ -66,15 +61,24 @@ public class PersonModel implements Serializable {
         this.gender = gender;
     }
 
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDtoV2 that = (PersonDtoV2) o;
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(gender, that.gender) && Objects.equals(birthDay, that.birthDay);
+    }
+
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(id, firstName, lastName, address, gender, birthDay);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-
 }
