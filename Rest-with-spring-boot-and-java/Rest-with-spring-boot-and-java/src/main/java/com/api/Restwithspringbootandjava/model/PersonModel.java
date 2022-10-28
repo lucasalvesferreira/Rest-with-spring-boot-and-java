@@ -1,6 +1,7 @@
 package com.api.Restwithspringbootandjava.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 @Entity
@@ -20,7 +21,6 @@ public class PersonModel implements Serializable {
     private String address;
     @Column(nullable = false,length = 6)
     private String gender;
-
 
     public PersonModel() {
 

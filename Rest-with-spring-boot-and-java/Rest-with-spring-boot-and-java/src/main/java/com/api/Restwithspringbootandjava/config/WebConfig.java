@@ -18,7 +18,6 @@ public class WebConfig implements WebMvcConfigurer {
         converters.add(new YmalJackson2HttpMesageConverter());
     }
 
-
 //    Transforma via url
 
 //    @Override

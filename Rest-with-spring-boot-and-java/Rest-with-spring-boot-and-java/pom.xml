@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.5</version>
+		<version>3.0.0-M4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.api</groupId>
-	<artifactId>Rest-with-spring-boot-and-java</artifactId>
+	<groupId>br.com.erudio</groupId>
+	<artifactId>rest-with-spring-boot-and-java-erudio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Rest-with-spring-boot-and-java</name>
-	<description>Demo project for Spring Boot</description>
+	<name>rest-with-spring-boot-and-java-erudio</name>
 	<properties>
-		<java.version>11</java.version>
-		<dozer.version>6.5.2</dozer.version>
+		<java.version>18</java.version>
+		<dozer.version>6.4.0</dozer.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-		<!--Spring Jpa-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
-		<!--mySql-->
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.dozermapper</groupId>
-			<artifactId>dozer-core</artifactId>
-			<version> ${dozer.version}</version>
 		</dependency>
 
 		<dependency>
@@ -53,13 +53,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-yaml</artifactId>
+			<groupId>com.github.dozermapper</groupId>
+			<artifactId>dozer-core</artifactId>
+			<version>${dozer.version}</version>
 		</dependency>
 
 		<dependency>
@@ -67,6 +63,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -85,9 +87,9 @@
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
 				<configuration>
-					<url>jdbc:mysql://localhost:3306/rest_api_spring_boot?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
+					<url>jdbc:mysql://localhost:3306/rest_with_spring_boot_erudio?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
 					<user>root</user>
-					<password>urubu100</password>
+					<password>admin123</password>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -105,5 +107,25 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>
