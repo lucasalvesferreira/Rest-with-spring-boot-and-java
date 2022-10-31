@@ -2,7 +2,7 @@ package com.api.Restwithspringbootandjava.service;
 
 import com.api.Restwithspringbootandjava.contrllers.PersonController;
 import com.api.Restwithspringbootandjava.data.dtos.v1.PersonDto;
-import com.api.Restwithspringbootandjava.data.dtos.v2.PersonDtoV2;
+import com.api.Restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.api.Restwithspringbootandjava.exceptions.ResourceNotFoundException;
 import com.api.Restwithspringbootandjava.mapper.DozerMapper;
 import com.api.Restwithspringbootandjava.mapper.custom.PersonMapper;
@@ -56,23 +56,27 @@ public class PersonService {
 
     public PersonDto create(PersonDto person) throws Exception {
 
+        if (person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Create one person!");
         var entity = DozerMapper.parseObject(person, PersonModel.class);
         var dto= DozerMapper.parseObject(repository.save(entity),PersonDto.class);
         dto.add(linkTo(methodOn(PersonController.class).findById(dto.getKey())).withSelfRel());
         return dto;
+
     }
 
-    public PersonDtoV2 createV2(PersonDtoV2 person){
-
-        logger.info("Create one person with v2!");
-        var entity = mapper.convertDtoToEntity(person);
-
-        var dto=mapper.convertEntityToDto(repository.save(entity));
-        return dto;
-    }
+//    public PersonDtoV2 createV2(PersonDtoV2 person){
+//
+//        logger.info("Create one person with v2!");
+//        var entity = mapper.convertDtoToEntity(person);
+//
+//        var dto=mapper.convertEntityToDto(repository.save(entity));
+//        return dto;
+//    }
     public  PersonDto update(PersonDto person) throws Exception {
 
+        if (person == null) throw new RequiredObjectIsNullException();
         logger.info("updating one person!");
         var entity = repository.findById(person.getKey()).orElseThrow(
                 () -> new ResourceNotFoundException("No records found for this id!"));

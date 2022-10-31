@@ -1,6 +1,7 @@
 package com.api.Restwithspringbootandjava.unittests.mockito.service;
 
 import com.api.Restwithspringbootandjava.data.dtos.v1.PersonDto;
+import com.api.Restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.api.Restwithspringbootandjava.model.PersonModel;
 import com.api.Restwithspringbootandjava.repositories.PersonRepository;
 import com.api.Restwithspringbootandjava.service.PersonService;
@@ -85,17 +86,17 @@ class PersonServiceTest {
         assertEquals("Female", result.getGender());
     }
 
-//    @Test
-//    void testCreateWithNullPerson() {
-//        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
-//            service.create(null);
-//        });
-//
-//        String expectedMessage = "It is not allowed to persist a null object!";
-//        String actualMessage = exception.getMessage();
-//
-//        assertTrue(actualMessage.contains(expectedMessage));
-//    }
+    @Test
+    void testCreateWithNullPerson() {
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+            service.create(null);
+        });
+
+        String expectedMessage = "It is not allowed to persist a null object!";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
 
     @Test
@@ -127,17 +128,17 @@ class PersonServiceTest {
 
 
 
-//    @Test
-//    void testUpdateWithNullPerson() {
-//        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
-//            service.update(null);
-//        });
-//
-//        String expectedMessage = "It is not allowed to persist a null object!";
-//        String actualMessage = exception.getMessage();
-//
-//        assertTrue(actualMessage.contains(expectedMessage));
-//    }
+    @Test
+    void testUpdateWithNullPerson() {
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+            service.update(null);
+        });
+
+        String expectedMessage = "It is not allowed to persist a null object!";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
     @Test
     void testDelete() {

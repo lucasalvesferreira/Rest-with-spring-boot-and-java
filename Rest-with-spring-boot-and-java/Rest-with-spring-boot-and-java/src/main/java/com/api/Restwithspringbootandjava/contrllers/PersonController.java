@@ -34,12 +34,12 @@ public class PersonController {
     public PersonDto create(@RequestBody PersonDto person) throws Exception {
         return service.create(person);
     }
-    @PostMapping(value = "/v2",
-            consumes ={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML,MediaType.APPLICATION_YML},
-            produces ={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML,MediaType.APPLICATION_YML})
-    public PersonDtoV2 createv2(@RequestBody PersonDtoV2 person) throws Exception {
-        return service.createV2(person);
-    }
+//    @PostMapping(value = "/v2",
+//            consumes ={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML,MediaType.APPLICATION_YML},
+//            produces ={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML,MediaType.APPLICATION_YML})
+//    public PersonDtoV2 createv2(@RequestBody PersonDtoV2 person) throws Exception {
+//        return service.createV2(person);
+//    }
 
     @PutMapping(
             consumes ={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML,MediaType.APPLICATION_YML},
