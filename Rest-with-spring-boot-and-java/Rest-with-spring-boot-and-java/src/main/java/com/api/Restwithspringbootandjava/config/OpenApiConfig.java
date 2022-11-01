@@ -21,7 +21,7 @@ public class OpenApiConfig {
                         .license(
                                 new License()
                                         .name("Apache 2.0")
-                                        .url("")
+                                        .url("https://github.com/lucasalvesferreira")
                         )
                 );
 

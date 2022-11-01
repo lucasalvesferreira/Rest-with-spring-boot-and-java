@@ -5,17 +5,16 @@ import com.api.Restwithspringbootandjava.data.dtos.v1.PersonDto;
 import com.api.Restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.api.Restwithspringbootandjava.exceptions.ResourceNotFoundException;
 import com.api.Restwithspringbootandjava.mapper.DozerMapper;
-import com.api.Restwithspringbootandjava.mapper.custom.PersonMapper;
 import com.api.Restwithspringbootandjava.model.PersonModel;
 import com.api.Restwithspringbootandjava.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class PersonService {
@@ -23,8 +22,6 @@ public class PersonService {
     @Autowired
     PersonRepository repository;
 
-    @Autowired
-    PersonMapper mapper;
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
 
