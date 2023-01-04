@@ -1,4 +1,4 @@
-package com.api.Restwithspringbootandjava.integretionstests.controller;
+package com.api.Restwithspringbootandjava.integretionstests.controller.withjson;
 
 
 import com.api.Restwithspringbootandjava.configs.TestConfigs;
