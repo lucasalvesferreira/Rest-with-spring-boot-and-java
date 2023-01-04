@@ -1,6 +1,6 @@
 package com.api.Restwithspringbootandjava.config;
 
-import com.api.Restwithspringbootandjava.security.jwt.JwtConfigure;
+import com.api.Restwithspringbootandjava.security.jwt.JwtConfigurer;
 import com.api.Restwithspringbootandjava.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,15 +19,6 @@ import java.util.Map;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Bean
-//    public DefaultSecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests((authz) -> authz
-//                        .anyRequest().authenticated()
-//                )
-//                .httpBasic(Customizer.withDefaults());
-//        return http.build();
-//    }
     @Autowired
     private JwtTokenProvider tokenProvider;
 
@@ -41,8 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return passwordEncoder;
     }
 
-    @Override
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
@@ -61,6 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .cors()
                 .and()
-                .apply(new JwtConfigure(tokenProvider));
+                .apply(new JwtConfigurer(tokenProvider));
     }
 }

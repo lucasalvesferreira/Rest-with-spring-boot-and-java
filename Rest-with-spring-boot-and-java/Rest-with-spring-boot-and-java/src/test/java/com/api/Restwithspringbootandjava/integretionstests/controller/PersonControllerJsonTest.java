@@ -15,7 +15,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.DeserializationFeature;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-import org.testcontainers.shaded.org.yaml.snakeyaml.tokens.Token;
 
 import java.io.IOException;
 
@@ -46,17 +45,17 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
         var accessToken = given()
                 .basePath("/auth/signin")
-                .port(TestConfigs.SERVER_PORT)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                    .port(TestConfigs.SERVER_PORT)
+                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .body(user)
-                .when()
+                    .when()
                 .post()
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .as(TokenDto.class)
-                .getAccessToken();
+                    .then()
+                        .statusCode(200)
+                            .extract()
+                            .body()
+                                .as(TokenDto.class)
+                            .getAccessToken();
 
         specification = new RequestSpecBuilder()
                 .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + accessToken)
@@ -75,7 +74,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         var content =
             given().spec(specification)
             .contentType(TestConfigs.CONTENT_TYPE_JSON)
-               .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.)
+               .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_REST_API)
                .body(person)
                     .when()
                     .post()
@@ -110,17 +109,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     public void testCreateWithWrongOrigin() throws IOException {
         mockPerson();
 
-        specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN,TestConfigs.ORIGIN_REST_NO_API)
-                .setBasePath("/api/person/v1")
-                .setPort(TestConfigs.SERVER_PORT)
-                    .addFilter(new RequestLoggingFilter(LogDetail.ALL))
-                    .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-                .build();
-
         var content =
-            given().spec(specification)
-            .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                given().spec(specification)
+                        .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                        .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_REST_NO_API)
                .body(person)
             .when()
                  .post()
@@ -140,17 +132,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     public void findById() throws IOException {
         mockPerson();
 
-        specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN,TestConfigs.ORIGIN_REST_API)
-                .setBasePath("/api/person/v1")
-                .setPort(TestConfigs.SERVER_PORT)
-                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
-                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-                .build();
-
         var content =
                 given().spec(specification)
                         .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                        .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_REST_API)
                         .pathParams("id",person.getId())
                         .when()
                         .get("{id}")
@@ -183,17 +168,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     public void findByIdWithWhongOrigin() throws IOException {
         mockPerson();
 
-        specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN,TestConfigs.ORIGIN_REST_NO_API)
-                .setBasePath("/api/person/v1")
-                .setPort(TestConfigs.SERVER_PORT)
-                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
-                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-                .build();
-
         var content =
                 given().spec(specification)
                         .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                        .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_REST_NO_API)
                         .pathParams("id",person.getId())
                         .when()
                         .get("{id}")

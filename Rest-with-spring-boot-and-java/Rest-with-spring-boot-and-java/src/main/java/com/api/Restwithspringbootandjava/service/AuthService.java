@@ -19,10 +19,8 @@ public class AuthService {
 
     @Autowired
     private JwtTokenProvider tokenProvider;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private UserRepository repository;
 
@@ -50,8 +48,6 @@ public class AuthService {
             logger.info("Invalid username/password supplied!");
             throw new BadCredentialsException("Invalid username/password supplied!");
         }
-
-
 
     }
     @SuppressWarnings("rawtypes")
