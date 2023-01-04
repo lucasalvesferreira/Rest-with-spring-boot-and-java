@@ -54,9 +54,8 @@ public class AuthService {
 
 
     }
-
+    @SuppressWarnings("rawtypes")
     public ResponseEntity refreshToken(String username,String refreshToken){
-
         var user = repository.findByUsername(username);
 
         var tokenResponse = new TokenDto();

@@ -2,7 +2,9 @@ package com.api.Restwithspringbootandjava.integretionstests.controller;
 
 
 import com.api.Restwithspringbootandjava.configs.TestConfigs;
+import com.api.Restwithspringbootandjava.integretionstests.dto.AccountCredentialsDto;
 import com.api.Restwithspringbootandjava.integretionstests.dto.PersonDto;
+import com.api.Restwithspringbootandjava.integretionstests.dto.TokenDto;
 import com.api.Restwithspringbootandjava.integretionstests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.DeserializationFeature;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+import org.testcontainers.shaded.org.yaml.snakeyaml.tokens.Token;
 
 import java.io.IOException;
 
@@ -37,21 +40,42 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(1)
-    public void testCreate() throws IOException {
-        mockPerson();
+    @Order(0)
+    public void authorization() throws IOException {
+        AccountCredentialsDto user = new AccountCredentialsDto("leandro", "admin123");
+
+        var accessToken = given()
+                .basePath("/auth/signin")
+                .port(TestConfigs.SERVER_PORT)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .body(user)
+                .when()
+                .post()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(TokenDto.class)
+                .getAccessToken();
 
         specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN,TestConfigs.ORIGIN_REST_API)
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + accessToken)
                 .setBasePath("/api/person/v1")
                 .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
 
+    }
+    @Test
+    @Order(1)
+    public void testCreate() throws IOException {
+        mockPerson();
+
         var content =
             given().spec(specification)
             .contentType(TestConfigs.CONTENT_TYPE_JSON)
+               .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.)
                .body(person)
                     .when()
                     .post()
